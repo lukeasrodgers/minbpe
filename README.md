@@ -140,6 +140,35 @@ uv run bench/benchmark.py
 
 Results are saved as JSON to `bench/results/`.
 
+Sample run on m1 2020 mac mini m1:
+
+```sh
+➜  minbpe git:(master) uname -a
+Darwin Macmini 24.6.0 Darwin Kernel Version 24.6.0: Mon Jul 14 11:30:34 PDT 2025; root:xnu-11417.140.69~1/RELEASE_ARM64_T8103 arm64
+➜  minbpe git:(master) uv run bench/benchmark.py
+Training RegexTokenizer for encode/decode fixtures (vocab_size=320)...
+Done.
+
+Inputs:
+  plain:        557304 bytes / 374538 tokens
+  with special: 571812 bytes / 376149 tokens
+
+=== Encode / Decode (5 runs) ===
+  encode:plain                    min= 0.511s  mean= 0.532s  max= 0.570s
+  encode:special_tokens           min= 0.517s  mean= 0.528s  max= 0.554s
+  decode:plain                    min= 0.024s  mean= 0.026s  max= 0.033s
+  decode:special_tokens           min= 0.025s  mean= 0.028s  max= 0.032s
+
+=== Training (3 runs) ===
+  train:320                       min= 2.506s  mean= 2.521s  max= 2.550s
+  train:512                       min= 8.363s  mean= 8.374s  max= 8.392s
+
+Saved: /Users/luke/code/minbpe/bench/results/20260426_124113.json
+➜  minbpe git:(master)
+```
+
+This is currently about 2x faster than my unoptimized ruby port here [minbpe-rb](https://github.com/lukeasrodgers/minbpe-rb).
+
 ## community extensions
 
 * [gnp/minbpe-rs](https://github.com/gnp/minbpe-rs): A Rust implementation of `minbpe` providing (near) one-to-one correspondence with the Python version
