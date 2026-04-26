@@ -54,7 +54,7 @@ print(tokenizer.encode(text))
 # [15339, 4513, 12340, 30, 320, 31495, 230, 75265, 243, 92245, 16715, 57037]
 ```
 
-(you'll have to `pip install tiktoken` to run). Under the hood, the `GPT4Tokenizer` is just a light wrapper around `RegexTokenizer`, passing in the merges and the special tokens of GPT-4. We can also ensure the special tokens are handled correctly:
+Under the hood, the `GPT4Tokenizer` is just a light wrapper around `RegexTokenizer`, passing in the merges and the special tokens of GPT-4. We can also ensure the special tokens are handled correctly:
 
 ```python
 text = "<|endoftext|>hello world"
@@ -114,17 +114,31 @@ tokenizer.register_special_tokens({"<|endoftext|>": 32768})
 tokenizer.encode("<|endoftext|>hello world", allowed_special="all")
 ```
 
-You can of course add more tokens after that as well, as you like. Finally, I'd like to stress that I tried hard to keep the code itself clean, readable and hackable. You should not have feel scared to read the code and understand how it works. The tests are also a nice place to look for more usage examples. That reminds me:
+You can of course add more tokens after that as well, as you like. Finally, I'd like to stress that I tried hard to keep the code itself clean, readable and hackable. You should not have feel scared to read the code and understand how it works. The tests are also a nice place to look for more usage examples.
+
+## setup
+
+This project uses [uv](https://docs.astral.sh/uv/). To install dependencies:
+
+```bash
+uv sync
+```
 
 ## tests
 
-We use the pytest library for tests. All of them are located in the `tests/` directory. First `pip install pytest` if you haven't already, then:
-
 ```bash
-$ pytest -v .
+uv run pytest -v .
 ```
 
-to run the tests. (-v is verbose, slightly prettier).
+## benchmarks
+
+Benchmarks time encode, decode, and training on the Taylor Swift fixture text:
+
+```bash
+uv run bench/benchmark.py
+```
+
+Results are saved as JSON to `bench/results/`.
 
 ## community extensions
 

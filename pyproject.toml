@@ -1,0 +1,13 @@
+[project]
+name = "minbpe"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "regex",
+    "tiktoken",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
